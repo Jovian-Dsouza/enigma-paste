@@ -4,7 +4,7 @@ import "@/styles/globals.css";
 export default function App({ Component, pageProps }) {
   return (
     <div>
-      <title>Jovi Dex</title>
+      <title>EngimaPaste</title>
       <Layout>
         <Component {...pageProps} />
       </Layout>
