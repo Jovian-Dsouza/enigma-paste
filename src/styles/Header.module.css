@@ -1,0 +1,7 @@
+.link {
+    @apply hover:text-white font-semibold underline-offset-8 hover:underline 
+}
+
+.connect {
+    @apply text-brownishBlack hover:text-white hover:bg-brownishBlack bg-white border-white font-bold border-2 px-4 py-2 rounded-lg
+}

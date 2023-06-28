@@ -1,0 +1,31 @@
+.formGroup {
+  @apply flex flex-col mb-4 space-y-2 w-full;
+}
+
+.formLabel {
+  @apply font-semibold;
+}
+
+.formInput {
+  @apply w-full p-2 border shadow-sm rounded-md outline-none text-gray-600;
+}
+
+.formSelect {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.formButton {
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formButton:hover {
+  background-color: #45a049;
+}
