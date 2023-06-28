@@ -1,6 +1,6 @@
 export const menuLinks = [
   { text: "Create", href: "/" },
   { text: "Recent", href: "/recent" },
-  { text: "Trending", href: "/trending" },
+  { text: "API", href: "/api" },
   { text: "About", href: "/about" },
 ];

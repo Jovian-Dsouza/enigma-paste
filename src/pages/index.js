@@ -16,18 +16,21 @@ export default function Home() {
         {/* Form Container */}
         <div className="flex flex-col">
           {/* Create new paste  */}
-          <input
-            type="text"
-            placeholder="CREATE A NEW PASTE"
-            className="w-full mb-5 pb-2 border-b-2 outline-none text-lg text-gray-600 font-semibold"
-          ></input>
+          <div className="w-full mb-5 pb-2 border-b-2 outline-none text-lg text-gray-600 font-semibold uppercase">
+            CREATE A NEW PASTE
+          </div>
 
           {/* Metadata input container */}
           <div className="flex flex-col w-full items-center md:flex-row md:space-x-4">
             {/* Author */}
             <div className={styles.formGroup}>
               <label className={styles.formLabel}>Author</label>
-              <input type="text" className={styles.formInput} name="author" />
+              <input
+                type="text"
+                className={styles.formInput}
+                name="author"
+                placeholder="Anonymous"
+              />
             </div>
 
             {/* Title */}
@@ -48,7 +51,7 @@ export default function Home() {
             </div>
 
             {/* Delete after */}
-            <div className={styles.formGroup}>
+            {/* <div className={styles.formGroup}>
               <label className={styles.formLabel}>Delete After</label>
               <select className={styles.formSelect} name="deleteAfter">
                 <option value="1">1 day</option>
@@ -56,7 +59,7 @@ export default function Home() {
                 <option value="30">30 days</option>
                 <option value="never">Never</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -78,7 +81,7 @@ export default function Home() {
             Create
           </button>
           <button className="bg-[#24a843] border-2 border-[#24a843] font-semibold text-white px-2 py-1 rounded-md hover:bg-white hover:text-[#24a843]">
-            Create encrpyted
+            Create private
           </button>
         </div>
       </div>
