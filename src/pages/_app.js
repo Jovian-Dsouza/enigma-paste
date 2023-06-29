@@ -7,7 +7,7 @@ import { ThirdwebProvider } from "@thirdweb-dev/react";
 
 export default function App({ Component, pageProps }) {
   return (
-    <ThirdwebProvider activeChain="ethereum">
+    <ThirdwebProvider activeChain="goerli">
       <div>
         <Head>
           <title>EngimaPaste</title>

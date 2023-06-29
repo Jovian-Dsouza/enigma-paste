@@ -11,10 +11,8 @@
 }
 
 .formSelect {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+   @apply w-full p-2 border shadow-sm rounded-md outline-none text-gray-600;
+
 }
 
 .formButton {
