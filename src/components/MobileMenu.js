@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-
+import { ConnectButton } from "./ConnectButton";
 import { menuLinks } from "@/data/contants";
 
 export function MobileMenu(props) {
@@ -26,6 +26,9 @@ export function MobileMenu(props) {
               {link.text}
             </a>
           ))}
+
+          {/* Connect button */}
+          <ConnectButton className="md:hidden text-center text-2xl border-black" />
         </div>
       </div>
     </div>
