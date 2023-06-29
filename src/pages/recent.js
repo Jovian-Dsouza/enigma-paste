@@ -7,24 +7,6 @@ import EnigmaPaste from "../assets/EnigmaPaste.json";
 const ENIGMAPASTE_ADDRESS = process.env.NEXT_PUBLIC_ENIGMAPASTE_ADDRESS;
 
 export default function Recent(props) {
-  const pastes = [
-    {
-      id: 1,
-      title: "Website script",
-      author: "John Doe",
-      date: "2023-06-25",
-      language: "JavaScript",
-    },
-    {
-      id: 2,
-      title: "ML training",
-      author: "Jane Smith",
-      date: "2023-06-26",
-      language: "Python",
-    },
-    // Add more paste objects as needed
-  ];
-
   const [pasteList, setPasteList] = useState([]);
   const walletAddress = useAddress();
   const { contract, isLoading } = useContract(
@@ -33,37 +15,36 @@ export default function Recent(props) {
   );
 
   async function getPasteList() {
-    var newPaste = pastes;
+    var newPaste = [];
 
-    if (!isLoading) {
-      const data = await contract.call("getAllPastes", [], {
-        from: walletAddress,
-      });
-
-      for (var i = 0; i < data.length; i++) {
-        const date = new Date(data[i].creationTime.toNumber());
-        const formattedDate = date.toISOString().split("T")[0];
-        var author = data[i].aurthor;
-        if (data[i].aurthor === "") {
-          author = "Anonymous";
-        }
-        newPaste.push({
-          id: data[i].id.toNumber(),
-          title: data[i].title,
-          author: author,
-          language: data[i].language,
-          date: formattedDate,
-        });
-        console.log(newPaste);
+    const data = await contract.call("getAllPastes", [], {
+      from: walletAddress,
+    });
+    console.log("getRecentData", data);
+    console.log(walletAddress)
+    for (var i = 0; i < data.length; i++) {
+      const date = new Date(data[i].creationTime.toNumber());
+      const formattedDate = date.toISOString().split("T")[0];
+      var author = data[i].aurthor;
+      if (data[i].aurthor === "") {
+        author = "Anonymous";
       }
+      newPaste.push({
+        id: data[i].id.toNumber(),
+        title: data[i].title,
+        author: author,
+        language: data[i].language,
+        date: formattedDate,
+      });
+      console.log(newPaste);
     }
     setPasteList(newPaste);
   }
   useEffect(() => {
-    // if (!isLoading) {
-    getPasteList();
-    // }
-  }, [isLoading]);
+    if (contract) {
+      getPasteList();
+    }
+  }, [contract]);
 
   return (
     <div>
