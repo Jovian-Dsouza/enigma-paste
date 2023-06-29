@@ -28,7 +28,7 @@ export function MobileMenu(props) {
           ))}
 
           {/* Connect button */}
-          <ConnectButton className="md:hidden text-center text-2xl border-black" />
+          <ConnectButton className="md:hidden text-center !text-2xl border-black" />
         </div>
       </div>
     </div>
