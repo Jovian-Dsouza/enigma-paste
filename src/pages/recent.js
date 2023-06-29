@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useContract, useAddress } from "@thirdweb-dev/react";
 import PasteList from "../components/PasteList";
 import { ethers } from "ethers";
-
+import { getURL } from "@/utils/ipfs";
 import EnigmaPaste from "../assets/EnigmaPaste.json";
 const ENIGMAPASTE_ADDRESS = process.env.NEXT_PUBLIC_ENIGMAPASTE_ADDRESS;
 
@@ -29,12 +29,14 @@ export default function Recent(props) {
       if (data[i].aurthor === "") {
         author = "Anonymous";
       }
+      const contentUrl = getURL(data[i].ipfsCid);
       newPaste.push({
         id: data[i].id.toNumber(),
         title: data[i].title,
         author: author,
         language: data[i].language,
         date: formattedDate,
+        url: contentUrl,
       });
       console.log(newPaste);
     }

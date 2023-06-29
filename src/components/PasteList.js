@@ -47,7 +47,7 @@ const PasteList = ({ pastes }) => {
           <tbody className="bg-white">
             {pastes.map((item) => (
               <tr onClick={()=>{
-                router.push(`/recent/${item.id}`);
+                router.push(`${item.url}`);
               }} key={item.id} className="hover:bg-gray-300">
                 <td className="py-4 px-6">
                   <div className="flex items-center space-x-2">
