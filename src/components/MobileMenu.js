@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { ConnectButton } from "./ConnectButton";
 import { menuLinks } from "@/data/contants";
+import Link from "next/link";
 
 export function MobileMenu(props) {
   return (
@@ -18,13 +19,13 @@ export function MobileMenu(props) {
         {/* Nav links */}
         <div className="flex flex-col space-y-10">
           {menuLinks.map((link, index) => (
-            <a
+            <Link
               href={link.href}
               key={index}
               className="text-center text-2xl font-semibold capitalize hover:underline underline-offset-4"
             >
               {link.text}
-            </a>
+            </Link>
           ))}
 
           {/* Connect button */}

@@ -19,13 +19,13 @@ function Header(props) {
         </a>
 
         {menuLinks.map((link, index) => (
-          <a
+          <Link
             href={link.href}
             className={`${styles.link} hidden md:block`}
             key={index}
           >
             {link.text}
-          </a>
+          </Link>
         ))}
 
         {/* Connect button */}
