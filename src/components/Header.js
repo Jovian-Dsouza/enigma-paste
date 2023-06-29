@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines, faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 import styles from "@/styles/Header.module.css";
-
+import { ConnectButton } from "./ConnectButton";
 import { menuLinks } from "@/data/contants";
 
 function Header(props) {
@@ -27,16 +27,18 @@ function Header(props) {
             {link.text}
           </a>
         ))}
-        <a href="#" className={`${styles.connect} hidden md:block`}>
-          Connect
-        </a>
+
+        {/* Connect button */}
+        <ConnectButton className="hidden md:block" />
 
         {/* Hamburger */}
-        <FontAwesomeIcon
-          icon={faBarsStaggered}
-          className="md:hidden w-6 h-6 hover:text-darkishBlue"
-          onClick={props.handleMenuToggle}
-        />
+        <div className="md:hidden">
+          <FontAwesomeIcon
+            icon={faBarsStaggered}
+            className="w-6 h-6 hover:text-darkishBlue"
+            onClick={props.handleMenuToggle}
+          />
+        </div>
       </div>
     </div>
   );
