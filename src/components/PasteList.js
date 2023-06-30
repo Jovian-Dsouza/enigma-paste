@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "../styles/PasteList.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileLines } from "@fortawesome/free-solid-svg-icons";
+import { faFileLines, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-const PasteList = ({ pastes }) => {
+const PasteList = ({ pastes, onDeletePaste }) => {
   const router = useRouter();
 
   if(pastes.length == 0){
@@ -42,13 +42,18 @@ const PasteList = ({ pastes }) => {
               <th className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase bg-gray-50">
                 Date
               </th>
+              <th className="pr-3 text-gray-500 uppercase bg-gray-50"></th>
             </tr>
           </thead>
           <tbody className="bg-white">
             {pastes.map((item) => (
-              <tr onClick={()=>{
-                router.push(`${item.url}`);
-              }} key={item.id} className="hover:bg-gray-300">
+              <tr
+                onClick={() => {
+                  router.push(`${item.url}`);
+                }}
+                key={item.id}
+                className="hover:bg-gray-300"
+              >
                 <td className="py-4 px-6">
                   <div className="flex items-center space-x-2">
                     <FontAwesomeIcon icon={faFileLines} />
@@ -60,6 +65,17 @@ const PasteList = ({ pastes }) => {
                 </td>
                 <td className="py-4 px-6">
                   <div className="text-[#999]">{item.date}</div>
+                </td>
+                <td className="pr-3">
+                  <div
+                    className="hover:text-red-600"
+                    onClick={async (e) => {
+                      onDeletePaste(item)
+                      e.stopPropagation();
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </div>
                 </td>
               </tr>
             ))}
