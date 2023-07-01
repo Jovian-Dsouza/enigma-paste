@@ -3,10 +3,12 @@ import { useContract, useAddress } from "@thirdweb-dev/react";
 import PasteList from "../components/PasteList";
 import { getURL, deletePasteFromIPFS } from "@/utils/ipfs";
 import EnigmaPaste from "../assets/EnigmaPaste.json";
+import LoadingPage from "@/components/LoadingPage";
+
 const ENIGMAPASTE_ADDRESS = process.env.NEXT_PUBLIC_ENIGMAPASTE_ADDRESS;
 
 export default function Recent(props) {
-  const [pasteList, setPasteList] = useState([]);
+  const [pasteList, setPasteList] = useState();
   const walletAddress = useAddress();
   const { contract, isLoading } = useContract(
     ENIGMAPASTE_ADDRESS,
@@ -18,6 +20,10 @@ export default function Recent(props) {
     const data = await contract.call("getAllPastes", [], {
       from: walletAddress,
     });
+    if(!data){
+      console.error("Cant get pastes, contract call failed");
+      return;
+    }
     for (var i = 0; i < data.length; i++) {
       const date = new Date(data[i].creationTime.toNumber());
       const formattedDate = date.toISOString().split("T")[0];
@@ -51,10 +57,14 @@ export default function Recent(props) {
   }
 
   useEffect(() => {
-    if (contract) {
+    if (contract && walletAddress) {
       getPasteList();
     }
-  }, [contract]);
+  }, [contract, walletAddress]);
+
+  if (!pasteList) {
+    return <LoadingPage />;
+  }
 
   return (
     <div>

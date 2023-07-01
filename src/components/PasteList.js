@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useRouter } from 'next/router';
+import { languageFileExtensions } from "@/data/contants";
 
 const PasteList = ({ pastes, onDeletePaste }) => {
   const router = useRouter();
@@ -57,7 +58,7 @@ const PasteList = ({ pastes, onDeletePaste }) => {
                 <td className="py-4 px-6">
                   <div className="flex items-center space-x-2">
                     <FontAwesomeIcon icon={faFileLines} />
-                    <div className={styles.fileName}>{item.title}</div>
+                    <div className={styles.fileName}>{`${item.title}.${languageFileExtensions[item.language]}`}</div>
                   </div>
                 </td>
                 <td className="py-4 px-6">

@@ -10,13 +10,13 @@ function Header(props) {
   return (
     <div className="sticky top-0 z-30 flex justify-center items-center bg-brownishBlack px-20 py-3">
       <div className="flex justify-between items-center w-full max-w-6xl text-darkGray text-sm">
-        <a
-          href="#"
+        <Link
+          href="/"
           className={`flex justify-center items-center space-x-2 font-bold text-lg text-white`}
         >
           <FontAwesomeIcon icon={faFileLines} />
           <div>EngimaPaste</div>
-        </a>
+        </Link>
 
         {menuLinks.map((link, index) => (
           <Link
