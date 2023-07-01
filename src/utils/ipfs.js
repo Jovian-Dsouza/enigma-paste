@@ -25,6 +25,10 @@ export function getURL(cid) {
   return `https://gateway.pinata.cloud/ipfs/${cid}`;
 }
 
+export function getIpfsURL(cid){
+  return `https://ipfs.io/ipfs/${cid}`;
+}
+
 export async function deletePasteFromIPFS(cid) {
   try {
     const resp = await fetch(`/api/deletePasteFromIPFS`, {
