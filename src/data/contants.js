@@ -8,8 +8,8 @@ export const menuLinks = [
 export const languageOptions = ["JavaScript", "Python", "Java", "C#"];
 
 export const languageFileExtensions = {
-  JavaScript: ".js",
-  Python: ".py",
-  Java: ".java",
-  "C#": ".cs",
+  JavaScript: "js",
+  Python: "py",
+  Java: "java",
+  "C#": "cs",
 };
