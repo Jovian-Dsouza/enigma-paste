@@ -20,7 +20,7 @@ export default function Recent(props) {
     const data = await contract.call("getAllPastes", [], {
       from: walletAddress,
     });
-    if(!data){
+    if (!data) {
       console.error("Cant get pastes, contract call failed");
       return;
     }
@@ -63,6 +63,9 @@ export default function Recent(props) {
   }, [contract, walletAddress]);
 
   if (!pasteList) {
+    if (!walletAddress) {
+      return <PasteList pastes={[]} />;
+    }
     return <LoadingPage />;
   }
 
