@@ -2,18 +2,10 @@ import styles from "@/pages/home.module.css";
 import { useState } from "react";
 import { addPasteToIPFS, getURL } from "../utils/ipfs";
 import EnigmaPaste from "../assets/EnigmaPaste.json";
-
+import {languageOptions, languageFileExtensions} from "@/data/contants";
 import { useContract, useAddress } from "@thirdweb-dev/react";
 
 const ENIGMAPASTE_ADDRESS = process.env.NEXT_PUBLIC_ENIGMAPASTE_ADDRESS;
-const languageOptions = ["JavaScript", "Python", "Java", "C#"];
-
-const languageFileExtensions = {
-  JavaScript: ".js",
-  Python: ".py",
-  Java: ".java",
-  "C#": ".cs",
-};
 
 export default function Home() {
   const [title, setTitle] = useState("");
