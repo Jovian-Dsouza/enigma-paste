@@ -39,13 +39,15 @@ export default function Recent(props) {
     setPasteList(newPaste);
   }
 
-  async function handleDeletePaste(paste){
-    //TODO: error handling
+  async function handleDeletePaste(paste) {
     //TODO ADD loading
-    console.log("Delete paste called", paste)
-    const txn = await contract.call("deletePaste", [paste.id]);
-    const result = await deletePasteFromIPFS(paste.cid);
-    console.log(`Paste with cid=${paste.cid} deleted: ${result}`);
+    try {
+      const txn = await contract.call("deletePaste", [paste.id]);
+      const result = await deletePasteFromIPFS(paste.cid);
+      console.log(`Paste with cid=${paste.cid} deleted: ${result}`);
+    } catch (e) {
+      console.error(`Error deleting paste ${paste.cid}: ${e}`);
+    }
   }
 
   useEffect(() => {
