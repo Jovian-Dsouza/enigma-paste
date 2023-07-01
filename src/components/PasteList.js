@@ -49,7 +49,7 @@ const PasteList = ({ pastes, onDeletePaste }) => {
             {pastes.map((item) => (
               <tr
                 onClick={() => {
-                  router.push(`${item.url}`);
+                  router.push(`/recent/${item.id}`);
                 }}
                 key={item.id}
                 className="hover:bg-gray-300"
