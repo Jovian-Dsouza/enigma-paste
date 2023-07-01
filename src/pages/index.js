@@ -1,11 +1,8 @@
 import styles from "@/pages/home.module.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { addPasteToIPFS, getURL } from "../utils/ipfs";
-import EnigmaPaste from "../assets/EnigmaPaste.json";
 import {languageOptions, languageFileExtensions} from "@/data/contants";
-import { useContract, useAddress } from "@thirdweb-dev/react";
-
-const ENIGMAPASTE_ADDRESS = process.env.NEXT_PUBLIC_ENIGMAPASTE_ADDRESS;
+import { AppContext } from "@/data/AppContext";
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -20,11 +17,7 @@ export default function Home() {
     setTextareaHeight(event.target.style.height);
   };
 
-  const { contract } = useContract(
-    ENIGMAPASTE_ADDRESS,
-    EnigmaPaste.abi
-  );
-  const walletAddress = useAddress();
+  const { enigmaContract: contract } = useContext(AppContext);
 
   const handleCreatePaste = async (isPrivate) => {
     const result = await addPasteToIPFS(

@@ -1,19 +1,14 @@
-import { useEffect, useState } from "react";
-import { useContract, useAddress } from "@thirdweb-dev/react";
+import { useEffect, useState, useContext } from "react";
+import { useAddress } from "@thirdweb-dev/react";
 import PasteList from "../components/PasteList";
 import { getURL, deletePasteFromIPFS } from "@/utils/ipfs";
-import EnigmaPaste from "../assets/EnigmaPaste.json";
 import LoadingPage from "@/components/LoadingPage";
+import { AppContext } from "@/data/AppContext";
 
-const ENIGMAPASTE_ADDRESS = process.env.NEXT_PUBLIC_ENIGMAPASTE_ADDRESS;
-
-export default function Recent(props) {
+export default function Recent() {
   const [pasteList, setPasteList] = useState();
   const walletAddress = useAddress();
-  const { contract, isLoading } = useContract(
-    ENIGMAPASTE_ADDRESS,
-    EnigmaPaste.abi
-  );
+  const { enigmaContract: contract} = useContext(AppContext);
 
   async function getPasteList() {
     var newPaste = [];

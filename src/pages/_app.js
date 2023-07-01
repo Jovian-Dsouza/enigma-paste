@@ -4,19 +4,22 @@ import Head from "next/head";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { AppContextProvider } from "@/data/AppContext";
 
 export default function App({ Component, pageProps }) {
   return (
     <ThirdwebProvider activeChain="goerli">
-      <div>
-        <Head>
-          <title>EngimaPaste</title>
-          <link rel="icon" href="/favicon.svg" />
-        </Head>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </div>
+      <AppContextProvider>
+        <div>
+          <Head>
+            <title>EngimaPaste</title>
+            <link rel="icon" href="/favicon.svg" />
+          </Head>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </div>
+      </AppContextProvider>
     </ThirdwebProvider>
   );
 }
