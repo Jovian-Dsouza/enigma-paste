@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
-import { useContract, useAddress } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
@@ -10,24 +10,20 @@ import {
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styles from "./pasteId.module.css";
-import { getURL, deletePasteFromIPFS } from "@/utils/ipfs";
-import EnigmaPaste from "../../assets/EnigmaPaste.json";
+import { deletePasteFromIPFS } from "@/utils/ipfs";
 import DownloadButton from "@/components/DownloadButton";
 import { languageFileExtensions } from "@/data/contants";
 import LoadingPage from "@/components/LoadingPage";
 import { convertTimestampToFormat } from "@/utils/timeUtils";
 import { getRawContentFromURL } from "@/utils/apiUtils";
 import AutoSizeTextArea from "@/components/AutoSizeTextArea";
-const ENIGMAPASTE_ADDRESS = process.env.NEXT_PUBLIC_ENIGMAPASTE_ADDRESS;
+import { AppContext } from "@/data/AppContext";
 
 export default function PastePage() {
   const router = useRouter();
 
   const walletAddress = useAddress();
-  const { contract, isLoading } = useContract(
-    ENIGMAPASTE_ADDRESS,
-    EnigmaPaste.abi
-  );
+  const { enigmaContract: contract } = useContext(AppContext);
 
   const [paste, setPaste] = useState(null);
 
