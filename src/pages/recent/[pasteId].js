@@ -18,6 +18,7 @@ import { convertTimestampToFormat } from "@/utils/timeUtils";
 import { getRawContentFromURL } from "@/utils/apiUtils";
 import AutoSizeTextArea from "@/components/AutoSizeTextArea";
 import { AppContext } from "@/data/AppContext";
+import { decryptData } from "@/utils/encryptionUtils";
 
 export default function PastePage() {
   const router = useRouter();
@@ -26,8 +27,9 @@ export default function PastePage() {
   const { enigmaContract: contract } = useContext(AppContext);
 
   const [paste, setPaste] = useState(null);
+  const [decryptedContent, setDecryptedContent] = useState(null);
 
-  async function fetchContentFromURL(url){
+  async function fetchContentFromURL(url) {
     try {
       return await getRawContentFromURL(url);
     } catch (error) {
@@ -35,16 +37,28 @@ export default function PastePage() {
     }
   }
 
+  async function handleDecryptContent() {
+    const decrypted = await decryptData(walletAddress, paste.content);
+    setDecryptedContent(decrypted);
+  }
+
   async function getPaste(pasteId) {
     //TODO handle error on invalid paste id
     const data = await contract.call("getPaste", [pasteId], {
       from: walletAddress,
     });
-    if(!data){return;}
+    if (!data) {
+      return;
+    }
 
     const author = data.aurthor === "" ? "Anonymous" : data.aurthor;
-    const url = `/api/${data.ipfsCid}`
+    const url = `/api/${data.ipfsCid}`;
     const content = await fetchContentFromURL(url);
+
+    if(!data.isPrivate){
+      setDecryptedContent(content)
+    }
+
     setPaste({
       id: data.id.toNumber(),
       title: data.title,
@@ -131,7 +145,7 @@ export default function PastePage() {
                   fileName={`${paste.title}.${
                     languageFileExtensions[paste.language]
                   }`}
-                  fileContent={paste.content}
+                  fileContent={decryptedContent}
                 >
                   <FontAwesomeIcon icon={faDownload} />
                 </DownloadButton>
@@ -152,10 +166,22 @@ export default function PastePage() {
 
           {/* Content Area */}
           <div className="px-4 py-2 bg-white rounded-b-lg">
-            <AutoSizeTextArea
-              content={paste.content}
-              className="w-full px-2 py-1 text-gray-600 border-0 bg-white outline-none focus:ring-0"
-            />
+            {!decryptedContent ? (
+              <div className="flex flex-col justify-center items-center gap-5 py-10">
+                This paste is encrypted, you need to decrypt it
+                <button
+                  onClick={handleDecryptContent}
+                  className="px-2 py-1 rounded-md bg-gray-100 text-gray-500 font-bold text-sm border border-gray-400 hover:text-gray-700 hover:bg-gray-300"
+                >
+                  Decrypt
+                </button>
+              </div>
+            ) : (
+              <AutoSizeTextArea
+                content={decryptedContent}
+                className="w-full px-2 py-1 text-gray-600 border-0 bg-white outline-none focus:ring-0"
+              />
+            )}
           </div>
         </div>
       </div>

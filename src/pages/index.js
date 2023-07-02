@@ -1,9 +1,11 @@
 import styles from "@/pages/home.module.css";
 import { useState, useContext } from "react";
-import { addPasteToIPFS, deletePasteFromIPFS,  getURL } from "../utils/ipfs";
+import { addPasteToIPFS, deletePasteFromIPFS, getURL } from "../utils/ipfs";
 import { languageOptions, languageFileExtensions } from "@/data/contants";
 import { AppContext } from "@/data/AppContext";
 import TransactionModal from "@/components/TransactionModal";
+import { useAddress } from "@thirdweb-dev/react";
+import { encryptData } from "@/utils/encryptionUtils";
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -20,8 +22,9 @@ export default function Home() {
   };
 
   const { enigmaContract: contract } = useContext(AppContext);
+  const walletAddress = useAddress();
 
-  function resetPasteStates(){
+  function resetPasteStates() {
     setTitle("");
     setAuthor("");
     setLanguage(languageOptions[0]);
@@ -29,13 +32,30 @@ export default function Home() {
   }
 
   const handleCreatePaste = async (isPrivate) => {
-    setShowModal(true)
-    let cid = null
-    let timestamp = null
-    
+    setShowModal(true);
+    let cid = null;
+    let timestamp = null;
+    let encryptedContent = null;
+
+    if (isPrivate) {
+      //Encrypt the content
+      try {
+        encryptedContent = await encryptData(walletAddress, content);
+      } catch (error) {
+        alert(`Failed to encrypt paste: ${error.message}`);
+      }
+
+      if (!encryptedContent) {
+        setShowModal(false);
+        return;
+      }
+    } else {
+      encryptedContent = content;
+    }
+
     try {
       const result = await addPasteToIPFS(
-        content,
+        encryptedContent,
         `${title}.${languageFileExtensions[language]}}`
       );
       cid = result["IpfsHash"];
@@ -45,9 +65,9 @@ export default function Home() {
       setShowModal(false);
       alert("Failed to add paste to IPFS");
       console.log(error);
-      return
+      return;
     }
-    
+
     try {
       await contract.call("createPaste", [
         title,
@@ -63,7 +83,7 @@ export default function Home() {
       setShowModal(false);
       deletePasteFromIPFS(cid);
       alert("Transaction failed could not create paste");
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -163,7 +183,7 @@ export default function Home() {
             }}
             className="bg-[#24a843] border-2 border-[#24a843] font-semibold text-white px-2 py-1 rounded-md hover:bg-white hover:text-[#24a843]"
           >
-            Create private
+            Create Encrypted
           </button>
         </div>
       </div>
