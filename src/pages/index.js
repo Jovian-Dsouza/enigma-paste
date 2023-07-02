@@ -1,14 +1,16 @@
 import styles from "@/pages/home.module.css";
 import { useState, useContext } from "react";
-import { addPasteToIPFS, getURL } from "../utils/ipfs";
-import {languageOptions, languageFileExtensions} from "@/data/contants";
+import { addPasteToIPFS, deletePasteFromIPFS,  getURL } from "../utils/ipfs";
+import { languageOptions, languageFileExtensions } from "@/data/contants";
 import { AppContext } from "@/data/AppContext";
+import TransactionModal from "@/components/TransactionModal";
 
 export default function Home() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [language, setLanguage] = useState(languageOptions[0]);
   const [content, setContent] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const [textareaHeight, setTextareaHeight] = useState("auto");
   const handleTextareaInput = (event) => {
@@ -19,20 +21,62 @@ export default function Home() {
 
   const { enigmaContract: contract } = useContext(AppContext);
 
+  function resetPasteStates(){
+    setTitle("");
+    setAuthor("");
+    setLanguage(languageOptions[0]);
+    setContent("");
+  }
+
   const handleCreatePaste = async (isPrivate) => {
-    const result = await addPasteToIPFS(
-      content,
-      `${title}.${languageFileExtensions[language]}}`
-    ); //TODO Error handling if this fails
-    const cid = result["IpfsHash"];
-    console.log("Added to IPFS", getURL(cid));
-    const timestamp = (new Date(result["Timestamp"])).getTime();
-    console.log(timestamp)
-    const txn = await contract.call("createPaste", [title, language, author, timestamp, cid, isPrivate]);
+    setShowModal(true)
+    let cid = null
+    let timestamp = null
+    
+    try {
+      const result = await addPasteToIPFS(
+        content,
+        `${title}.${languageFileExtensions[language]}}`
+      );
+      cid = result["IpfsHash"];
+      timestamp = new Date(result["Timestamp"]).getTime();
+      console.log("Added to IPFS", getURL(cid));
+    } catch (error) {
+      setShowModal(false);
+      alert("Failed to add paste to IPFS");
+      console.log(error);
+      return
+    }
+    
+    try {
+      await contract.call("createPaste", [
+        title,
+        language,
+        author,
+        timestamp,
+        cid,
+        isPrivate,
+      ]);
+      setShowModal(false);
+      resetPasteStates();
+    } catch (error) {
+      setShowModal(false);
+      deletePasteFromIPFS(cid);
+      alert("Transaction failed could not create paste");
+      console.log(error)
+    }
   };
 
   return (
     <div className="flex item-start justify-center min-h-full bg-gray-100 md:py-10">
+      {/* Modal */}
+      <TransactionModal show={showModal}>
+        <h1 class="text-3xl text-center font-extrabold">Creating Paste 🔃</h1>
+        <p class="text-gray-600">
+          Please wait while your paste is being created...
+        </p>
+      </TransactionModal>
+
       {/* Main Container */}
       <div className="w-full max-w-6xl bg-white p-10 rounded-md shadow-lg">
         {/* Form Container */}
