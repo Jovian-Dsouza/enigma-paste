@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }) {
       <AppContextProvider>
         <div>
           <Head>
-            <title>EngimaPaste</title>
+            <title>EnigmaPaste</title>
             <link rel="icon" href="/favicon.svg" />
           </Head>
           <Layout>
