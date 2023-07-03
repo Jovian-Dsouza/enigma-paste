@@ -15,7 +15,7 @@ function Header(props) {
           className={`flex justify-center items-center space-x-2 font-bold text-lg text-white`}
         >
           <FontAwesomeIcon icon={faFileLines} />
-          <div>EngimaPaste</div>
+          <div>EnigmaPaste</div>
         </Link>
 
         {menuLinks.map((link, index) => (
