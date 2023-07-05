@@ -1,5 +1,9 @@
 
 ![Enigma Paste](images/home.png)
+![Enigma Paste](images/recent.png)
+![Enigma Paste](images/api.png)
+![Enigma Paste](images/decrypt.png)
+![Enigma Paste](images/delete.png)
 
 # Enigma Paste
 
@@ -23,6 +27,7 @@ A Secure and Decentralized Pastebin
 ## Demo
 
 you can see my portfolio by visiting the [demo link.](https://enigma-paste.vercel.app/)
+See Deployed Smart contract on [Etherscan](https://goerli.etherscan.io/address/0x3eC79f8194D374caAC9d3512Ece3Fe43C0EFa0C1)
 
 ## Prerequisites
 
@@ -54,6 +59,21 @@ git clone https://github.com/Jovian-Dsouza/enigma-paste
   npm install
 ```
 
+## Environment Variable
+```
+QUICK_NODE_URL=....
+GOERLI_PRIVATE_KEY=... // For Contract deployment
+NEXT_PUBLIC_ENIGMAPASTE_ADDRESS= .... //deployed contract address
+PINATA_API_KEY=... //IPFS Api key
+PINATA_API_SECRET=... //IPFS Api secret
+```
+
+## Contract Deployment
+```bash
+cd smartcontracts
+npx hardhat run scripts/deploy.js --network goerli
+```
+
 ## usage
 
 To start the application, run npm run dev. 
@@ -73,8 +93,6 @@ npm run dev
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/96a539d0f4942d7f622d96b43372b8e6038ff508e690609b1ffc1fc3108025bb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d48544d4c352d3030303f266c6f676f3d68746d6c35266c6f676f436f6c6f723d453334463236"><img src="https://camo.githubusercontent.com/96a539d0f4942d7f622d96b43372b8e6038ff508e690609b1ffc1fc3108025bb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d48544d4c352d3030303f266c6f676f3d68746d6c35266c6f676f436f6c6f723d453334463236" alt="HTML5" data-canonical-src="https://img.shields.io/badge/-HTML5-000?&amp;logo=html5&amp;logoColor=E34F26" style="max-width: 100%;"></a>
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9aa9859905af6a3b26edde4a73cf1974ed9ae204b16f24f4b704b5cafe1159c2/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d4353532d3030303f266c6f676f3d63737333266c6f676f436f6c6f723d313537324236"><img src="https://camo.githubusercontent.com/9aa9859905af6a3b26edde4a73cf1974ed9ae204b16f24f4b704b5cafe1159c2/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d4353532d3030303f266c6f676f3d63737333266c6f676f436f6c6f723d313537324236" alt="CSS" data-canonical-src="https://img.shields.io/badge/-CSS-000?&amp;logo=css3&amp;logoColor=1572B6" style="max-width: 100%;"></a>
  <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4b4858ab474b4aaf1d67602c602f1149a7666b04563d1e674a21922d66537b14/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d4a6176615363726970742d3030303f266c6f676f3d4a617661536372697074266c6f676f436f6c6f723d646463353038"><img src="https://camo.githubusercontent.com/4b4858ab474b4aaf1d67602c602f1149a7666b04563d1e674a21922d66537b14/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d4a6176615363726970742d3030303f266c6f676f3d4a617661536372697074266c6f676f436f6c6f723d646463353038" alt="JavaScript" data-canonical-src="https://img.shields.io/badge/-JavaScript-000?&amp;logo=JavaScript&amp;logoColor=ddc508" style="max-width: 100%;"></a>
-<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/404617cc3b075fbc7b1483a9b43d0f6be4aeec1bbd464bf51651c572414009c7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d536173732d3030303f266c6f676f3d53617373"><img src="https://camo.githubusercontent.com/404617cc3b075fbc7b1483a9b43d0f6be4aeec1bbd464bf51651c572414009c7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d536173732d3030303f266c6f676f3d53617373" alt="Sass" data-canonical-src="https://img.shields.io/badge/-Sass-000?&amp;logo=Sass" style="max-width: 100%;"></a>
-<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9931d101c80aa7cef99bbc377a51936afeb68674645815f815b851fd8de8c470/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d566974652d3030303f266c6f676f3d56697465"><img src="https://camo.githubusercontent.com/9931d101c80aa7cef99bbc377a51936afeb68674645815f815b851fd8de8c470/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d566974652d3030303f266c6f676f3d56697465" alt="Vite" data-canonical-src="https://img.shields.io/badge/-Vite-000?&amp;logo=Vite" style="max-width: 100%;"></a>
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6424c761a99e4d5a5dba0f726fd292a299dc8e695868dce735863ddd6ec753f3/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d52656163742d3030303f266c6f676f3d5265616374"><img src="https://camo.githubusercontent.com/6424c761a99e4d5a5dba0f726fd292a299dc8e695868dce735863ddd6ec753f3/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d52656163742d3030303f266c6f676f3d5265616374" alt="React" data-canonical-src="https://img.shields.io/badge/-React-000?&amp;logo=React" style="max-width: 100%;"></a>
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4be1b65dacc325285f29149e0a051b99ae77fdffefae235e1cab0f8a46abd9ea/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d7461696c77696e646373732d3030303f266c6f676f3d7461696c77696e64637373"><img src="https://camo.githubusercontent.com/4be1b65dacc325285f29149e0a051b99ae77fdffefae235e1cab0f8a46abd9ea/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d7461696c77696e646373732d3030303f266c6f676f3d7461696c77696e64637373" alt="Tailwind CSS" data-canonical-src="https://img.shields.io/badge/-tailwindcss-000?&amp;logo=tailwindcss" style="max-width: 100%;"></a>
 </p>
@@ -91,7 +109,7 @@ Before contributing, please review the contribution guidelines.
 
 For additional information or inquiries, you can reach out to the project maintainer:
 
-- Name: dsouzajovian123@gmail.com
+- Name: Jovian Dsouza
 - Email: dsouzajovian123@gmail.com
 
 Feel free to contact the maintainer for any questions or feedback regarding the project.
